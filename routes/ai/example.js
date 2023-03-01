@@ -13,6 +13,8 @@ app.post('/example', async (req, res, next) => {
 	let inputRaw = `${content}` // here is where people enter stuff
 	prompt += inputRaw
 
+	console.log(prompt)
+
 	const gptResponse = await openai.complete({
 		engine: 'curie',
 		prompt,
@@ -29,6 +31,8 @@ app.post('/example', async (req, res, next) => {
 	});
 
 	let output = `${gptResponse.data.choices[0].text}`
+
+	console.log(output);
 
 	// remove the first character from output
 	output = output.substring(1, output.length)

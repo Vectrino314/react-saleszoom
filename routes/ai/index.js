@@ -14,6 +14,7 @@ let app = express.Router()
 
 app.use('/', initMiddleware, creditCheck); 
 
+app.use('/', require('./etsy/description'));
 app.use('/', require('./summarize'));
 app.use('/', require('./code/interpret'));
 app.use('/', require('./writing/intro'));

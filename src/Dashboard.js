@@ -20,6 +20,9 @@ class Body extends Component {
 		return this.permissions.filter(tool => tool.category === 'Beta')
 	}
 
+	@computed get etsy() {
+		return this.permissions.filter(tool => tool.category === 'Etsy')
+	}
 
 	@computed get personal() {
 		return this.permissions.filter(tool => tool.category === 'Personal')
@@ -50,7 +53,23 @@ class Body extends Component {
 			</Helmet>
 			<MainBody className="px-4 py-4 md:px-28 md:py-8 lg:py-12 ">
 
-		
+			{this.etsy.length ? <>
+				<Title title="Etsy" />
+				<Grid>
+					{this.etsy.map((tool, index) => 
+						<Tool 
+							key={index}
+							group={tool.category}
+							title={tool.title} 
+							to={tool.to} 
+							Icon={tool.Icon} 
+							desc={tool.desc} 
+							fromColor={tool.fromColor} 
+							toColor={tool.toColor} 
+						/>)} 
+				</Grid>
+				<Divider />
+			</> : null}
 
 			{this.programming.length ? <>
 				<Title title="Programming" />
