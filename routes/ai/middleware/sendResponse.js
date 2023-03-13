@@ -19,12 +19,24 @@ const sendResponse = async (req, res, next) => {
 	if(req.locals.outputs){
 		response.outputs = req.locals.outputs
 	}
+	if(req.locals.totalPages){
+		response.totalPages = req.locals.totalPages
+	}
+	if(req.locals.bottomRange){
+		response.bottomRange = req.locals.bottomRange
+	}
+	if(req.locals.topRange){
+		response.topRange = req.locals.topRange
+	}
+	if(req.locals.totalItems){
+		response.totalItems = req.locals.totalItems
+	}
 	if(req.locals.code){
 		response.code =  req.locals.code
 	}
 
 	res.json(response)
-	
+
 }
 
 module.exports = sendResponse

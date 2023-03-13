@@ -32,7 +32,11 @@ const creditPayment = async (req, res, next) => {
 	let cost = 0.1200
 
 	// Cost is per 1k tokens
-	cost = cost / 1000
+	if(req.locals.skipCredit) {
+		cost = 0
+	} else {
+		cost = cost / 1000
+	}
 
 	// Credits used in a transaction
 	let price = (inputLength + outputLength) * cost
@@ -40,12 +44,21 @@ const creditPayment = async (req, res, next) => {
 	let creditsBeforeRounding = 12 * price
 	let credits = Math.ceil(creditsBeforeRounding)
 
+	// if(req.locals.skipCredit) {
+	// 	cost = 0
+	// 	// Credits used in a transaction
+	// 	price = 0
+	//
+	// 	creditsBeforeRounding = 0
+	// 	credits = 0
+	// }
+
 	req.locals.inputLength = inputLength
 	req.locals.outputLength = outputLength
 	req.locals.price = price
 	req.locals.credits = credits
 
-	// Now updated the suer
+	// Now updated the user
 
 	let user = await User.findOne({ _id: req.user._id })
 
@@ -66,7 +79,7 @@ const creditPayment = async (req, res, next) => {
 	await user.save()
 
 	next()
-	
+
 }
 
 

@@ -43,10 +43,14 @@ const saveToHistory = async (req, res, next) => {
 		prepHistory.url = req.originalUrl
 	}
 
-	let history = new History(prepHistory)
-	history.save();
+	if(req.locals.skipHistory) {
+		next()
+	} else {
+		let history = new History(prepHistory)
+		history.save();
 
-	next()
+		next()
+	}
 }
 
 module.exports = saveToHistory
